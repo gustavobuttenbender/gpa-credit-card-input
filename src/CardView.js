@@ -16,21 +16,29 @@ const BASE_SIZE = { width: 300, height: 190 };
 
 const s = StyleSheet.create({
   cardContainer: {},
-  cardFace: {},
+  cardFace: {  
+    shadowOffset: {
+      width: 0.3,
+      height: 5,
+    },
+    elevation: 3,
+    shadowRadius: 2,
+    shadowOpacity: 0.09,
+  },
   icon: {
     position: "absolute",
-    top: 15,
-    right: 15,
-    width: 60,
+    top: 25,
+    right: 35,
+    width: 50,
     height: 40,
     resizeMode: "contain",
   },
   baseText: {
-    color: "rgba(255, 255, 255, 0.8)",
+    color: "rgb(255, 255, 255)",
     backgroundColor: "transparent",
   },
   placeholder: {
-    color: "rgba(255, 255, 255, 0.5)",
+    color: "rgba(255, 255, 255, 0.9)",
   },
   focused: {
     fontWeight: "bold",
@@ -45,8 +53,8 @@ const s = StyleSheet.create({
   name: {
     fontSize: 16,
     position: "absolute",
-    bottom: 20,
-    left: 25,
+    bottom: 35,
+    left: 28,
     right: 100,
   },
   expiryLabel: {
@@ -58,7 +66,7 @@ const s = StyleSheet.create({
   expiry: {
     fontSize: 16,
     position: "absolute",
-    bottom: 20,
+    bottom: 35,
     left: 220,
   },
   amexCVC: {
@@ -73,6 +81,9 @@ const s = StyleSheet.create({
     top: 80,
     right: 30,
   },
+  flipCard: {
+    borderWidth: 0,
+  } 
 });
 
 /* eslint react/prop-types: 0 */ // https://github.com/yannickcr/eslint-plugin-react/issues/106
@@ -99,7 +110,7 @@ export default class CardView extends Component {
     placeholder: {
       number: "•••• •••• •••• ••••",
       name: "FULL NAME",
-      expiry: "••/••",
+      expiry: "MM/AA",
       cvc: "•••",
     },
 
@@ -126,7 +137,7 @@ export default class CardView extends Component {
 
     return (
       <View style={[s.cardContainer, containerSize]}>
-        <FlipCard style={{ borderWidth: 0 }}
+        <FlipCard style={ s.flipCard }
           flipHorizontal
           flipVertical={false}
           friction={10}
@@ -143,9 +154,6 @@ export default class CardView extends Component {
               <Text style={[s.baseText, { fontFamily }, s.name, !name && s.placeholder, focused === "name" && s.focused]}
                 numberOfLines={1}>
                 { !name ? placeholder.name : name.toUpperCase() }
-              </Text>
-              <Text style={[s.baseText, { fontFamily }, s.expiryLabel, s.placeholder, focused === "expiry" && s.focused]}>
-                MONTH/YEAR
               </Text>
               <Text style={[s.baseText, { fontFamily }, s.expiry, !expiry && s.placeholder, focused === "expiry" && s.focused]}>
                 { !expiry ? placeholder.expiry : expiry }

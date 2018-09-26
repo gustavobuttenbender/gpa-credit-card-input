@@ -143,23 +143,24 @@ export default class CreditCardInput extends Component {
     const {
       cardImageFront, cardImageBack, inputContainerStyle,
       values: { number, expiry, cvc, name, type }, focused,
-      allowScroll, requiresName, requiresCVC, requiresPostalCode,
+      fixedValues: { fixNumber, fixExpiry, fixCvc, fixName, fixType }, allowScroll, 
+      requiresName, requiresCVC, requiresPostalCode,
       cardScale, cardFontFamily, cardBrandIcons,
     } = this.props;
 
     return (
       <View style={s.container}>
         <CreditCard focused={focused}
-          brand={type}
+          brand={fixType || type}
           scale={cardScale}
           fontFamily={cardFontFamily}
           imageFront={cardImageFront}
           imageBack={cardImageBack}
           customIcons={cardBrandIcons}
-          name={requiresName ? name : " "}
-          number={number}
-          expiry={expiry}
-          cvc={cvc} />
+          name={fixName || requiresName ? (fixName || name) : " "}
+          number={fixNumber || number }
+          expiry={fixExpiry || expiry}
+          cvc={fixCvc || cvc} />
         <ScrollView ref="Form"
           horizontal
           keyboardShouldPersistTaps="always"
