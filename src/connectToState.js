@@ -15,6 +15,7 @@ export const InjectedProps = {
   requiresName: PropTypes.bool,
   requiresCVC: PropTypes.bool,
   requiresPostalCode: PropTypes.bool,
+  validByRequest: PropTypes.bool,
 };
 
 export default function connectToState(CreditCardInput) {
@@ -60,7 +61,7 @@ export default function connectToState(CreditCardInput) {
       const newValues = { ...this.state.values, ...values };
       const displayedFields = this._displayedFields();
       const formattedValues = (new CCFieldFormatter(displayedFields)).formatValues(newValues);
-      const validation = (new CCFieldValidator(displayedFields, this.props.validatePostalCode)).validateValues(formattedValues);
+      const validation = (new CCFieldValidator(displayedFields, this.props.validatePostalCode, this.props.validByRequest)).validateValues(formattedValues,);
       const newState = { values: formattedValues, ...validation };
 
       this.setState(newState);
