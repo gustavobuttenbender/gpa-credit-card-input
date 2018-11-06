@@ -21,7 +21,7 @@ export default class CCFieldValidator {
   validateNumber = (number) => {
     if (this._validByRequest.maxLength !== number.length) {
       return 'incomplete'
-    } else if (this._validByRequest.cardType && luhn10(number.replace(' ', ''))) {
+    } else if (this._validByRequest.cardType && luhn10(number.split(' ').join(''))) {
       return 'valid'
     }
 
