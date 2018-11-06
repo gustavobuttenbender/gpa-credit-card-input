@@ -2,6 +2,7 @@ import valid from "card-validator";
 import pick from "lodash.pick";
 import values from "lodash.values";
 import every from "lodash.every";
+import luhn10 from "./luhn10"
 
 const toStatus = validation => {
   return validation.isValid ? "valid" :
@@ -20,7 +21,7 @@ export default class CCFieldValidator {
   validateNumber = (number) => {
     if (this._validByRequest.maxLength !== number.length) {
       return 'incomplete'
-    } else if (this._validByRequest.cardType) {
+    } else if (this._validByRequest.cardType && luhn10(number.replace(' ', ''))) {
       return 'valid'
     }
 
