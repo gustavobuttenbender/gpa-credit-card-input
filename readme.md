@@ -116,6 +116,7 @@ LiteCreditCardInput does not support `requiresName`, `requiresCVC`, and `require
 |requiresName | PropTypes.bool | Shows cardholder's name field<br/> Default to `false` |
 |requiresCVC | PropTypes.bool | Shows CVC field<br/> Default to `true` |
 |requiresPostalCode | PropTypes.bool | Shows postalCode field<br/> Default to `false` |
+|requiresExpiry | PropTypes.bool | Shows expiry field<br/> Default to `true` |
 |validatePostalCode | PropTypes.func | Function to validate postalCode, expects `incomplete`, `valid`, or `invalid` as return values|
 |allowScroll | PropTypes.bool | enables horizontal scrolling on CreditCardInput <br/> Defaults to `false` |
 |cardBrandIcons | PropTypes.object | brand icons for CardView. see `./src/Icons.js` for details |

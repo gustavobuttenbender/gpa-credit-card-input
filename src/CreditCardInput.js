@@ -146,7 +146,7 @@ export default class CreditCardInput extends Component {
       values: { number, expiry, cvc, name, type }, focused,
       fixedValues: { fixNumber, fixExpiry, fixCvc, fixName, fixType }, allowScroll, 
       requiresName, requiresCVC, requiresPostalCode,
-      cardScale, cardFontFamily, cardBrandIcons,
+      cardScale, cardFontFamily, cardBrandIcons, requiresExpiry
     } = this.props;
 
     return (
@@ -158,9 +158,9 @@ export default class CreditCardInput extends Component {
           imageFront={cardImageFront}
           imageBack={cardImageBack}
           customIcons={cardBrandIcons}
-          name={fixName || requiresName ? (fixName || name) : " "}
+          name={fixName || (requiresName ? name : " ")}
           number={fixNumber || number }
-          expiry={fixExpiry || expiry}
+          expiry={fixExpiry || (requiresExpiry ? expiry : " ")}
           cvc={fixCvc || cvc} />
         <ScrollView ref="Form"
           horizontal
@@ -171,9 +171,10 @@ export default class CreditCardInput extends Component {
           <CCInput {...this._inputProps("number")}
             keyboardType="numeric"
             containerStyle={[s.inputContainer, inputContainerStyle, { width: CARD_NUMBER_INPUT_WIDTH }]} />
-          <CCInput {...this._inputProps("expiry")}
-            keyboardType="numeric"
-            containerStyle={[s.inputContainer, inputContainerStyle, { width: EXPIRY_INPUT_WIDTH }]} />
+          { requiresExpiry && 
+            <CCInput {...this._inputProps("expiry")}
+              keyboardType="numeric"
+              containerStyle={[s.inputContainer, inputContainerStyle, { width: EXPIRY_INPUT_WIDTH }]} /> }
           { requiresCVC &&
             <CCInput {...this._inputProps("cvc")}
               keyboardType="numeric"
